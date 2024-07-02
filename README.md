@@ -1,21 +1,31 @@
 # Project 3: Spots
 
-### Overview  
+Spots is as mock socail media website that will allow users to create and edit a profile, post pictures and like pictures posted by other users. The site is designed to be viewd differnetly on different size screens which is done through using grid layout and media queries to create a responive web page.
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+## Project features
+
+- grid layout
+- media queries
+- responsive design
+
+### Grid Layout
+
+In order to present the photos in a way that is responive to different screen sizes the photos are presented in an unordered list element that has a been set as display: grid in the css file. There the gird-template-column attribute can be set to be a way that sets the columns are a certian size and are in an number that fills the screen.
+
+### Media Queries
+
+When the screen is 627 px or less, serveral blocks have media queries added to them that will resize elements in the block to better fit on the screen.
+
+### Responsive Design
+
+Along with the afformentioned use of gird layout and media queries, absolute values are used for all line-height attributes. That means that line-heights will increase/decrease with the font-size without changing it in a media query.
+
+## Links
+
+### Github pages
+
+A link to the website as hosted by Github:
+
+### Explination Video
+
+A short video that describes the project:

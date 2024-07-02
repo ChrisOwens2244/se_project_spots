@@ -3,6 +3,7 @@
   font-style: normal;
   font-weight: 400;
   src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+  color: #212121;
 }
 
 @font-face {
@@ -10,4 +11,5 @@
   font-style: normal;
   font-weight: 500;
   src: url("./fonts/Poppins-Medium.ttf") format("truetype");
+  color: #212121;
 }

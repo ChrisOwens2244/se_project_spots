@@ -6,6 +6,7 @@
 
 .profile__avatar {
   margin-right: 20px;
+  border-radius: 8px;
 }
 
 .profile__column {
@@ -59,6 +60,7 @@
   font-size: 16px;
   line-height: 1;
   box-sizing: border-box;
+  border-style: none;
   padding: 18px 32px 18px 32px;
   gap: 8px;
   border-radius: 8px;
