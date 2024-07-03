@@ -20,12 +20,16 @@ When the screen is 627 px or less, serveral blocks have media queries added to t
 
 Along with the afformentioned use of gird layout and media queries, absolute values are used for all line-height attributes. That means that line-heights will increase/decrease with the font-size without changing it in a media query.
 
+## Imporvements
+
+This website should be able to let a user view the full view of an image if clicked. The buttons should also have some functionallity when clicked on instead of doing nothing.
+
 ## Links
 
 ### Github pages
 
-A link to the website as hosted by Github:
+A link to the website as hosted by Github: https://chrisowens2244.github.io/se_project_spots/index.html
 
 ### Explination Video
 
-A short video that describes the project:
+A short video that describes the project: https://drive.google.com/drive/folders/1OvtXuheu0eYtlQwV320LKtfrhbMbzqs_?usp=sharing
