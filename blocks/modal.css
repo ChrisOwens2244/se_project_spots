@@ -1,0 +1,153 @@
+.modal {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #00000080;
+  padding: auto;
+}
+
+.modal_opened {
+  visibility: visible;
+}
+
+.modal__container {
+  background-color: white;
+  border-style: none;
+  border-radius: 8px;
+  padding: 32px 50px;
+  gap: 32px;
+  max-width: 730px;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.modal__close-button {
+  opacity: 40%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 32px;
+  right: 50px;
+  transition: opacity, 1s, ease-in 0s;
+  border-style: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__close-button:hover {
+  opacity: 100%;
+}
+
+.modal__close-img {
+  height: 22.63px;
+  width: 22.63px;
+}
+
+.modal__title {
+  margin: 0 0 32px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  line-height: 1;
+  align-self: center;
+}
+
+.modal__input {
+  border: 1px;
+  border-radius: 8px;
+  border-color: #21212166;
+  border-style: solid;
+  padding: 16px 12px;
+  transition: boarder-color, 1s, ease-in, 0s;
+  color: #212121;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1;
+  gap: 10px;
+}
+
+.modal__input::placeholder {
+  color: #2121214d;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.modal__input:hover {
+  border-color: #212121;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.1;
+  color: #212121b2;
+}
+
+.modal__save-button {
+  width: 156px;
+  padding: 18px 32px;
+  border-style: none;
+  border-radius: 8px;
+  gap: 8px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  color: #fcf5e5;
+  background-color: #212121;
+  transition: opacity, 1s, ease-in, 0s;
+}
+
+.modal__save-button:hover {
+  opacity: 80%;
+}
+
+@media screen and (max-width: 627px) {
+  .modal {
+    padding: 0 10px;
+  }
+
+  .modal__container {
+    padding: 12px;
+    width: 300px;
+  }
+
+  .modal__title {
+    font-size: 20px;
+    margin: 10px 0 34px;
+  }
+
+  .modal__close-button {
+    top: 12px;
+    right: 12px;
+  }
+
+  .modal__label {
+    margin-bottom: 24px;
+  }
+
+  .modal__input {
+    font-size: 16px;
+  }
+
+  .modal__input::placeholder {
+    font-size: 16px;
+  }
+
+  .modal__save-button {
+    width: 100%;
+  }
+}
