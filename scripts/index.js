@@ -34,8 +34,6 @@ const profileEditButton = document.querySelector(".profile__edit-btn");
 const editModal = document.querySelector("#edit-modal");
 const editModalCloseButton = editModal.querySelector(".modal__close-button");
 
-editModal.classList.remove("modal_opened");
-
 function openModal() {
   editModal.classList.add("modal_opened");
 }
@@ -44,5 +42,60 @@ function closeModal() {
   editModal.classList.remove("modal_opened");
 }
 
+closeModal();
+
 profileEditButton.addEventListener("click", openModal);
 editModalCloseButton.addEventListener("click", closeModal);
+
+
+const profileFormElement = editModal.querySelector("#edit-profile");
+
+
+const nameInput = profileFormElement.querySelector("#name");
+const jobInput = profileFormElement.querySelector("#description");
+
+
+const profileNameElement = document.querySelector(".profile__name");
+const profileJobElement = document.querySelector(".profile__description");
+
+nameInput.value = profileNameElement.textContent;
+jobInput.value = profileJobElement.textContent;
+
+// The form submission handler. Note that its name
+// starts with a verb and concisely describes what it does.
+function handleProfileFormSubmit(evt) {
+  // Prevent default browser behavior, see explanation below.
+  evt.preventDefault();
+
+  const newName = nameInput.value;
+  const newJob = jobInput.value;
+
+  profileNameElement.textContent = newName;
+  profileJobElement.textContent = newJob;
+
+  closeModal();
+}
+
+// Connect the handler to the form, so it will watch for the submit event.
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+const cardsList = document.querySelector(".cards__list");
+const cardTemplate = document.querySelector("#card");
+
+function getCardElements(data) {
+  const cardElement = cardTemplate.content.cloneNode(true);
+
+  const cardImage = data.link;
+  const cardName = data.name;
+
+  cardElement.querySelector(".card__image").src = cardImage;
+  cardElement.querySelector(".card__image").alt = cardName;
+  cardElement.querySelector(".card__name").textContent = cardName;
+
+  return cardElement;
+}
+
+for (let i = 0; i < initialCards.length; i++) {
+  const newCard = initialCards[i];
+  cardsList.append(getCardElements(newCard));
+}
