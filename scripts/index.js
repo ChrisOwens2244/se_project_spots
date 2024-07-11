@@ -34,6 +34,14 @@ const profileEditButton = document.querySelector(".profile__edit-btn");
 const editModal = document.querySelector("#edit-modal");
 const editModalCloseButton = editModal.querySelector(".modal__close-button");
 
+const profileFormElement = document.forms["edit-profile"];
+
+const nameInput = profileFormElement.querySelector("#name");
+const jobInput = profileFormElement.querySelector("#description");
+
+const profileNameElement = document.querySelector(".profile__name");
+const profileJobElement = document.querySelector(".profile__description");
+
 function openModal() {
   editModal.classList.add("modal_opened");
 }
@@ -41,25 +49,12 @@ function openModal() {
 function closeModal() {
   editModal.classList.remove("modal_opened");
 }
-
-closeModal();
-
-profileEditButton.addEventListener("click", openModal);
+profileEditButton.addEventListener("click", () => {
+  openModal();
+  nameInput.value = profileNameElement.textContent;
+  jobInput.value = profileJobElement.textContent;
+});
 editModalCloseButton.addEventListener("click", closeModal);
-
-
-const profileFormElement = editModal.querySelector("#edit-profile");
-
-
-const nameInput = profileFormElement.querySelector("#name");
-const jobInput = profileFormElement.querySelector("#description");
-
-
-const profileNameElement = document.querySelector(".profile__name");
-const profileJobElement = document.querySelector(".profile__description");
-
-nameInput.value = profileNameElement.textContent;
-jobInput.value = profileJobElement.textContent;
 
 // The form submission handler. Note that its name
 // starts with a verb and concisely describes what it does.
@@ -87,9 +82,10 @@ function getCardElements(data) {
 
   const cardImage = data.link;
   const cardName = data.name;
+  const cardImageElement = cardElement.querySelector(".card__image");
 
-  cardElement.querySelector(".card__image").src = cardImage;
-  cardElement.querySelector(".card__image").alt = cardName;
+  cardImageElement.src = cardImage;
+  cardImageElement.alt = cardName;
   cardElement.querySelector(".card__name").textContent = cardName;
 
   return cardElement;
