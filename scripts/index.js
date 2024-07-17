@@ -34,6 +34,9 @@ const profileEditButton = document.querySelector(".profile__edit-btn");
 const editModal = document.querySelector("#edit-modal");
 const editModalCloseButton = editModal.querySelector(".modal__close-button");
 
+const photoModal = document.querySelector("#photo-modal");
+const photoModalCloseButton = photoModal.querySelector(".modal__close-button");
+
 const profileFormElement = document.forms["edit-profile"];
 
 const nameInput = profileFormElement.querySelector("#name");
@@ -42,19 +45,22 @@ const jobInput = profileFormElement.querySelector("#description");
 const profileNameElement = document.querySelector(".profile__name");
 const profileJobElement = document.querySelector(".profile__description");
 
-function openModal() {
-  editModal.classList.add("modal_opened");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
 }
 
-function closeModal() {
-  editModal.classList.remove("modal_opened");
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
 }
+
 profileEditButton.addEventListener("click", () => {
-  openModal();
+  openModal(editModal);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
 });
-editModalCloseButton.addEventListener("click", closeModal);
+editModalCloseButton.addEventListener("click", () => {
+  closeModal(editModal);
+});
 
 // The form submission handler. Note that its name
 // starts with a verb and concisely describes what it does.
@@ -68,7 +74,7 @@ function handleProfileFormSubmit(evt) {
   profileNameElement.textContent = newName;
   profileJobElement.textContent = newJob;
 
-  closeModal();
+  closeModal(editModal);
 }
 
 // Connect the handler to the form, so it will watch for the submit event.
@@ -79,6 +85,8 @@ const cardTemplate = document.querySelector("#card");
 
 function getCardElements(data) {
   const cardElement = cardTemplate.content.cloneNode(true);
+  const likeButton = cardElement.querySelector(".card__button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   const cardImage = data.link;
   const cardName = data.name;
@@ -88,10 +96,62 @@ function getCardElements(data) {
   cardImageElement.alt = cardName;
   cardElement.querySelector(".card__name").textContent = cardName;
 
+  deleteButton.addEventListener("click", () => {
+    const parentCard = deleteButton.closest(".card");
+    parentCard.remove();
+  });
+
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__button_liked");
+  });
+
+  cardImageElement.addEventListener("click", () => {
+    const photoModalImage = photoModal.querySelector(".modal__photo");
+    const photoModalCaption = photoModal.querySelector(".modal__description");
+    photoModalImage.src = data.link;
+    photoModalImage.alt = data.name;
+    photoModalCaption.textContent = data.name;
+    openModal(photoModal);
+  });
+
+  photoModalCloseButton.addEventListener("click", () => {
+    closeModal(photoModal);
+  });
+
   return cardElement;
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  const newCard = initialCards[i];
-  cardsList.append(getCardElements(newCard));
+initialCards.forEach((element) => {
+  const card = getCardElements(element);
+  cardsList.append(card);
+});
+
+const postAddButton = document.querySelector(".profile__new-btn");
+const addModal = document.querySelector("#add-modal");
+const addModalCloseButton = addModal.querySelector(".modal__close-button");
+
+const postFormElement = document.forms["add-post"];
+
+const linkInput = postFormElement.querySelector("#link");
+const captionInput = postFormElement.querySelector("#caption");
+
+postAddButton.addEventListener("click", () => {
+  linkInput.value = "";
+  captionInput.value = "";
+  openModal(addModal);
+});
+
+addModalCloseButton.addEventListener("click", () => {
+  closeModal(addModal);
+});
+
+function handleAddFormSubmit(evt) {
+  evt.preventDefault();
+  const newCard = {
+    name: captionInput.value,
+    link: linkInput.value,
+  };
+  cardsList.prepend(getCardElements(newCard));
+  closeModal(addModal);
 }
+postFormElement.addEventListener("submit", handleAddFormSubmit);

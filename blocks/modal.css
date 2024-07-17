@@ -11,10 +11,14 @@
   flex-direction: column;
   background-color: #00000080;
   padding: auto;
+  opacity: 0;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
 }
 
 .modal_opened {
   visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .modal__container {
@@ -29,14 +33,20 @@
   width: 100%;
 }
 
+.modal__container_photo {
+  padding: 0;
+  background-color: transparent;
+  width: fit-content;
+}
+
 .modal__close-button {
-  opacity: 40%;
   width: 40px;
   height: 40px;
   position: absolute;
   top: 32px;
   right: 50px;
-  transition: opacity, 1s, ease-in 0s;
+  background: transparent url(../images/close.svg) center no-repeat;
+  transition: background-image, 1s, ease-in 0s;
   border-style: none;
   background-color: transparent;
   display: flex;
@@ -45,12 +55,7 @@
 }
 
 .modal__close-button:hover {
-  opacity: 100%;
-}
-
-.modal__close-img {
-  height: 22.63px;
-  width: 22.63px;
+  background-image: url(../images/close-hover.svg);
 }
 
 .modal__title {
@@ -115,6 +120,40 @@
   opacity: 80%;
 }
 
+.modal__photo {
+  padding: 0;
+  margin: 0;
+  object-fit: contain;
+  width: 100%;
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  border-style: none;
+}
+
+.modal__description {
+  background-color: #212121;
+  border-radius: 8px;
+  border-style: none;
+  padding: 4px 8px;
+  margin: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+  color: #ffffff;
+  width: fit-content;
+}
+
+.modal__close-button_photo {
+  top: 0;
+  right: -52.5px;
+  background-image: url(../images/close-photo.svg);
+}
+
+.modal__close-button_photo:hover {
+  background-image: url(../images/close-photo-hover.svg);
+}
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
@@ -125,6 +164,11 @@
     width: 300px;
   }
 
+  .modal__container_photo {
+    padding: 0;
+    width: fit-content;
+  }
+
   .modal__title {
     font-size: 20px;
     margin: 10px 0 34px;
@@ -133,6 +177,11 @@
   .modal__close-button {
     top: 12px;
     right: 12px;
+  }
+
+  .modal__close-button_photo {
+    top: -48px;
+    right: 0;
   }
 
   .modal__label {

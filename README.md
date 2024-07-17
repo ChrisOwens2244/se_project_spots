@@ -1,4 +1,4 @@
-# Project 4: Spots
+# Project 5: Spots
 
 Spots is as mock socail media website that will allow users to create and edit a profile, post pictures and like pictures posted by other users. The site is designed to be viewd differnetly on different size screens which is done through using grid layout and media queries to create a responive web page. As of project 4, the site now has a modal that allows users to edit the profile. Cards have also been changed so that they use Javascript to pull the image and name from an array of objects in the script file instead of having that hard coded into the html file.
 
@@ -23,11 +23,11 @@ Along with the afformentioned use of gird layout and media queries, absolute val
 
 ### Javascript
 
-Javascript functionallity allows for the edit profile button to pull a modal when clicked. This modal gives users a form that has been prefilled with the name and description from the profie. Here users can change the form, hit the save button, and alter the profile name and decription. Cards are now created using a template and an array of objects stored in the index.js file. The objects contain a name and link for each image. This array is then itterated over filling out a clone of the card template and inserting to html file. This will allow for users to add new cards in a future update.
+Javascript functionallity allows for the edit profile button to pull a modal when clicked. This modal gives users a form that has been prefilled with the name and description from the profie. Here users can change the form, hit the save button, and alter the profile name and decription. The inital cards are now created using a template and an array of objects stored in the index.js file. The objects contain a name and link for each image. This array is then itterated over filling out a clone of the card template and inserting the clone into html file. As of project 5 users can now add cards using the "new post" button. Hitting the button will pull up a modal that asks for a url and caption that are used by the same function that created the inital cards. Cards have also had their functionallity expaned by using Javascript. Clicking the image will bring up a preview modal loads up the full image that was clicked on along with the caption underneath. The like buttton on each card now changes apperance when clicked on thanks to function in javascript. Finially a delete button has been added the cards that will delete it's corresponding card by removing its parent block form the html file.
 
 ## Imporvements
 
-This website should be able to let a user view the full view of an image if clicked. The buttons for adding a new post should have functionallity and the edit porfile feature should let users change the avatar picture as well.
+The edit porfile feature should let users change the avatar picture and all changes made by the user should be saved on refresh.
 
 ## Links
 
