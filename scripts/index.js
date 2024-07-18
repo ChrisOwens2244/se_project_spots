@@ -36,6 +36,8 @@ const editModalCloseButton = editModal.querySelector(".modal__close-button");
 
 const photoModal = document.querySelector("#photo-modal");
 const photoModalCloseButton = photoModal.querySelector(".modal__close-button");
+const photoModalImage = photoModal.querySelector(".modal__photo");
+const photoModalCaption = photoModal.querySelector(".modal__description");
 
 const profileFormElement = document.forms["edit-profile"];
 
@@ -53,13 +55,18 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+const closeButtons = document.querySelectorAll(".modal__close-button");
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => {
+    closeModal(popup);
+  });
+});
+
 profileEditButton.addEventListener("click", () => {
   openModal(editModal);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
-});
-editModalCloseButton.addEventListener("click", () => {
-  closeModal(editModal);
 });
 
 // The form submission handler. Note that its name
@@ -106,18 +113,11 @@ function getCardElements(data) {
   });
 
   cardImageElement.addEventListener("click", () => {
-    const photoModalImage = photoModal.querySelector(".modal__photo");
-    const photoModalCaption = photoModal.querySelector(".modal__description");
     photoModalImage.src = data.link;
     photoModalImage.alt = data.name;
     photoModalCaption.textContent = data.name;
     openModal(photoModal);
   });
-
-  photoModalCloseButton.addEventListener("click", () => {
-    closeModal(photoModal);
-  });
-
   return cardElement;
 }
 
@@ -136,13 +136,7 @@ const linkInput = postFormElement.querySelector("#link");
 const captionInput = postFormElement.querySelector("#caption");
 
 postAddButton.addEventListener("click", () => {
-  linkInput.value = "";
-  captionInput.value = "";
   openModal(addModal);
-});
-
-addModalCloseButton.addEventListener("click", () => {
-  closeModal(addModal);
 });
 
 function handleAddFormSubmit(evt) {
@@ -153,5 +147,7 @@ function handleAddFormSubmit(evt) {
   };
   cardsList.prepend(getCardElements(newCard));
   closeModal(addModal);
+  linkInput.value = "";
+  captionInput.value = "";
 }
 postFormElement.addEventListener("submit", handleAddFormSubmit);
