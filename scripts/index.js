@@ -49,11 +49,29 @@ const profileJobElement = document.querySelector(".profile__description");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", escapeListener);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", escapeListener);
 }
+
+function escapeListener(evt) {
+  const modal = document.querySelector(".modal_opened");
+  if (evt.key === "Escape") {
+    closeModal(modal);
+  }
+}
+
+const modalList = document.querySelectorAll(".modal");
+modalList.forEach((modal) => {
+  modal.addEventListener("click", function (evt) {
+    if (evt.target.parentElement.classList.contains("page")) {
+      closeModal(modal);
+    }
+  });
+});
 
 const closeButtons = document.querySelectorAll(".modal__close-button");
 closeButtons.forEach((button) => {

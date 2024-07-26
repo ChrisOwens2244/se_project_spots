@@ -91,6 +91,28 @@
   border-color: #212121;
 }
 
+.modal__input_type_error {
+  border-color: #ff000099;
+}
+
+.modal__input_type_error:hover {
+  border-color: #ff0000;
+}
+
+.modal__error {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  display: block;
+  color: #ff0000b2;
+  font-size: 16px;
+  line-height: 1.1;
+  font-weight: 500;
+  visibility: hidden;
+}
+
+.modal__error_visiable {
+  visibility: visible;
+}
+
 .modal__label {
   display: flex;
   flex-direction: column;
@@ -118,6 +140,14 @@
 
 .modal__save-button:hover {
   opacity: 80%;
+}
+
+.modal__save-button_disabled {
+  opacity: 50%;
+}
+
+.modal__save-button_disabled:hover {
+  opacity: 50%;
 }
 
 .modal__photo {
