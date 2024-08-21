@@ -83,4 +83,5 @@ function enableValidation(config) {
   });
 }
 
-enableValidation(settings);
+//enableValidation(settings);
+export { enableValidation, settings };

@@ -1,4 +1,4 @@
-# Project 6: Spots
+# Project 9: Spots
 
 Spots is as mock socail media website that will allow users to create and edit a profile, post pictures and like pictures posted by other users. The site is designed to be viewd differnetly on different size screens which is done through using grid layout and media queries to create a responive web page. As of project 4, the site now has a modal that allows users to edit the profile. Cards have also been changed so that they use Javascript to pull the image and name from an array of objects in the script file instead of having that hard coded into the html file.
 
@@ -9,6 +9,7 @@ Spots is as mock socail media website that will allow users to create and edit a
 - responsive design
 - Javascript
 - Validation
+- WebPack
 
 ### Grid Layout
 
@@ -30,9 +31,13 @@ Javascript functionallity allows for the edit profile button to pull a modal whe
 
 A seperate javascript file has been added to the site called validation.js. This script checks if text entered into the modal input fields is valid under the conditions set in the index.html file. If the text is not valid, The input fields' borders will turn red and display an error message underneath explaining what needs to be changed. The error message is pulled from the default error message provided by the input field. While the input is invalid, the submit button for the modal is grayed out and disabled. The input fields return to their normal state when the text input is valid. The error message is hidden as well. The submit button will return to it's normal state when all input fields conatain valid text.
 
+### Webpack
+
+Webpack was added to the project inorder to allow the website to interact with a server in order to save any changes the user has made to their profile by changeing or deleting data on the server that will be called to everytime the webpage reloads.
+
 ## Imporvements
 
-The edit porfile feature should let users change the avatar picture and all changes made by the user should be saved on refresh.
+Allowing users to log into their own account instead of the one that is hardcoded into the index.js file.
 
 ## Links
 
