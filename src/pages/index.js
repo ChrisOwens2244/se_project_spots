@@ -36,6 +36,7 @@ const photoModalImage = photoModal.querySelector(".modal__photo");
 const photoModalCaption = photoModal.querySelector(".modal__description");
 
 const profileFormElement = document.forms["edit-profile"];
+const profileSaveBtn = profileFormElement.querySelector(".modal__save-button");
 
 const nameInput = profileFormElement.querySelector("#name");
 const jobInput = profileFormElement.querySelector("#description");
@@ -100,8 +101,12 @@ closeButtons.forEach((button) => {
 
 profileEditButton.addEventListener("click", () => {
   openModal(editModal);
+
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
+
+  profileSaveBtn.disabled = true;
+  profileSaveBtn.classList.add("modal__save-button_disabled");
 });
 
 // The form submission handler. Note that its name
@@ -112,16 +117,19 @@ function handleProfileFormSubmit(evt) {
 
   const newName = nameInput.value;
   const newJob = jobInput.value;
-
+  profileSaveBtn.textContent = "Saving...";
   api
     .updateProfileInfo({ name: newName, about: newJob })
     .then((data) => {
       profileNameElement.textContent = data["name"];
       profileJobElement.textContent = data["about"];
-      closeModal(editModal);
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      closeModal(editModal);
+      profileSaveBtn.textContent = "Save";
     });
 }
 
@@ -147,9 +155,8 @@ function getCardElements(data) {
   cardImageElement.alt = cardName;
   cardElement.querySelector(".card__name").textContent = cardName;
 
-  deleteButton.addEventListener("click", () => {
-    const parentCard = deleteButton.closest(".card");
-    handleDeleteCard(parentCard, data);
+  deleteButton.addEventListener("click", (evt) => {
+    handleDeleteCard(evt, data["_id"]);
   });
 
   if (data.isLiked) {
@@ -157,7 +164,7 @@ function getCardElements(data) {
   }
 
   likeButton.addEventListener("click", (evt) => {
-    handleLike(evt, data._id);
+    handleLike(evt, data["_id"]);
   });
 
   cardImageElement.addEventListener("click", () => {
@@ -169,55 +176,19 @@ function getCardElements(data) {
   return cardElement;
 }
 
-const deleteModal = document.querySelector("#delete-modal");
-const deleteForm = deleteModal.querySelector(".modal__prompt-buttons");
-
-function handleDeleteCard(cardElement, data) {
-  selectedCard = cardElement;
-  selectedCardId = data["_id"];
-  //console.log(selectedCardId);
-  openModal(deleteModal);
-}
-
-function handleDeleteSubmit(evt) {
-  evt.preventDefault();
-  handleDeleting(true);
-  api
-    .deleteCard({ id: selectedCardId })
-    .then(() => {
-      selectedCard.remove();
-      closeModal(deleteModal);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(handleDeleting(false));
-}
-
-function handleLike(evt, id) {
-  const isLiked = evt.target.classList.contains("card__button_liked");
-  api
-    .changeLikeStatus({ id: id, isLiked: isLiked })
-    .then(() => {
-      evt.target.classList.toggle("card__button_liked");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}
-
-deleteForm.addEventListener("submit", handleDeleteSubmit);
-
 const postAddButton = document.querySelector(".profile__new-btn");
 const addModal = document.querySelector("#add-modal");
 
 const postFormElement = document.forms["add-post"];
+const postSaveBtn = postFormElement.querySelector(".modal__save-button");
 
 const linkInput = postFormElement.querySelector("#link");
 const captionInput = postFormElement.querySelector("#caption");
 
 postAddButton.addEventListener("click", () => {
   openModal(addModal);
+  postSaveBtn.disabled = true;
+  postSaveBtn.classList.add("modal__save-button_disabled");
 });
 
 function handleAddFormSubmit(evt) {
@@ -226,68 +197,95 @@ function handleAddFormSubmit(evt) {
     name: captionInput.value,
     link: linkInput.value,
   };
-  handleLoading(true);
+
+  postSaveBtn.textContent = "Saving...";
   api
     .makeCard({ link: newCard.link, name: newCard.name })
-    .then(() => {
-      cardsList.prepend(getCardElements(newCard));
-      closeModal(addModal);
-      linkInput.value = "";
-      captionInput.value = "";
+    .then((res) => {
+      cardsList.prepend(getCardElements(res));
     })
     .catch((err) => {
       console.error(err);
     })
-    .finally(handleLoading(false));
+    .finally(() => {
+      closeModal(addModal);
+      linkInput.value = "";
+      captionInput.value = "";
+      postSaveBtn.textContent = "Save";
+    });
 }
 postFormElement.addEventListener("submit", handleAddFormSubmit);
 
 const editAvatarModal = document.querySelector("#avatar-modal");
 const avatarForm = document.forms["avatar-form"];
+const avatarSaveBtn = avatarForm.querySelector(".modal__save-button");
 const avatarInput = avatarForm.querySelector("#avatar-pic");
 const avatarBtn = document.querySelector(".profile__avatar-btn");
 avatarBtn.addEventListener("click", () => {
   openModal(editAvatarModal);
+  avatarSaveBtn.disabled = true;
+  avatarSaveBtn.classList.add("modal__save-button_disabled");
 });
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault();
   const newAvatar = avatarInput.value;
-  handleLoading(true);
+  avatarSaveBtn.textContent = "Saving...";
   api
     .updateAvatar({ avatar: newAvatar })
     .then(() => {
       imageAvatar.src = newAvatar;
-      closeModal(editAvatarModal);
+
       avatarInput.value = "";
     })
     .catch((err) => {
       console.error(err);
     })
-    .finally(handleLoading(false));
+    .finally(() => {
+      closeModal(editAvatarModal);
+      avatarSaveBtn.textContent = "Save";
+    });
 }
 avatarForm.addEventListener("submit", handleAvatarSubmit);
+const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__prompt-buttons");
+const deleteButton = deleteForm.querySelector(".modal__delete-button");
+
+function handleDeleteCard(evt, id) {
+  selectedCard = evt.target.closest(".card");
+  selectedCardId = id;
+  //console.log(selectedCardId);
+  openModal(deleteModal);
+}
+
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  deleteButton.textContent = "Deleting...";
+  api
+    .deleteCard({ id: selectedCardId })
+    .then(() => {
+      selectedCard.remove();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      closeModal(deleteModal);
+      deleteButton.textContent = "Delete";
+    });
+}
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
+
+function handleLike(evt, id) {
+  const liked = evt.target.classList.contains("card__button_liked");
+  api
+    .changeLikeStatus({ id: id, isLiked: liked })
+    .then(() => {
+      evt.target.classList.toggle("card__button_liked");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
 enableValidation(settings);
-
-const loadingModal = document.getElementById("loading-modal");
-const loadingText = loadingModal.querySelector(".modal__prompt");
-
-function handleLoading(isLoading) {
-  if (isLoading) {
-    loadingText.textContent = "Saving...";
-    loadingModal.classList.add("modal_opened");
-  } else {
-    loadingText.textContent = "";
-    loadingModal.classList.remove("modal_opened");
-  }
-}
-
-function handleDeleting(isDeleteing) {
-  if (isDeleteing) {
-    loadingText.textContent = "Deleteing...";
-    loadingModal.classList.add("modal_opened");
-  } else {
-    loadingText.textContent = "";
-    loadingModal.classList.remove("modal_opened");
-  }
-}

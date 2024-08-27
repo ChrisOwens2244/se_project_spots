@@ -19,11 +19,11 @@ class Api {
     });
   }
 
-  makeCard({ link, name }) {
+  makeCard({ link, name, _id }) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify({ link, name }),
+      body: JSON.stringify({ link, name, _id }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
