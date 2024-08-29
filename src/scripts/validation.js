@@ -82,5 +82,10 @@ function enableValidation(config) {
     setEventListeners(formEl, config);
   });
 }
+function disableButton(buttonElement, config) {
+  buttonElement.disabled = true;
+  buttonElement.classList.add(config.inactiveButtonClass);
+}
 
-enableValidation(settings);
+//enableValidation(settings);
+export { enableValidation, disableButton, settings };
